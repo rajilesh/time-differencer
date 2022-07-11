@@ -1,0 +1,68 @@
+<!-- Created by Rajilesh Panoli -->
+<textarea style="width:500px; height:200px;" id="times" onkeyup="getTotalTime()">11:00 - 12:20
+12:50 - 15:30
+16:30 - 21:00</textarea>
+<br />
+<h1>Total time <span id="total_time"></span></h1>
+<script type="text/javascript">
+    function getTotalTime() {
+
+        let times = document.getElementById('times');
+        let total_time = document.getElementById('total_time');
+
+        let timesArray = times.value.split(/\n/);
+
+
+        let totalH = 0;
+        let totalM = 0;
+
+        for (let i = 0; i < timesArray.length; i++) {
+            let t = timesArray[i].split(/\-/);
+
+            if (!t[1]) {
+                continue;
+            }
+
+            let t1 = t[0].split(/\:/);
+
+            let t2 = t[1].split(/\:/);
+            let t1h = getTime(t1[0]);
+            let t1m = getTime(t1[1]);
+
+
+            let t2h = getTime(t2[0]);
+            let t2m = getTime(t2[1]);
+            
+
+            var date1 = new Date(`11/07/2022 ${t1h}:${t1m}:00`);
+            var date2 = new Date(`11/07/2022 ${t2h}:${t2m}:00`);
+
+
+            var diff = date2.getTime() - date1.getTime();
+
+            var msec = diff;
+            var hh = Math.floor(msec / 1000 / 60 / 60);
+            msec -= hh * 1000 * 60 * 60;
+            var mm = Math.floor(msec / 1000 / 60);
+            msec -= mm * 1000 * 60;
+            var ss = Math.floor(msec / 1000);
+            msec -= ss * 1000;
+
+            totalH += hh;
+            totalM += mm;
+
+            console.log(totalH, totalM);
+        }
+        if (totalM > 59) {
+            totalH += 1;
+            totalM = totalM - 59;
+        }
+        total_time.innerHTML = totalH + ':' + (totalM < 10 ? '0'+totalM : totalM);
+    }
+
+    function getTime(time) {
+        time = isNaN(parseInt(time)) ? 0 : parseInt(time);
+        return time;
+    }
+    getTotalTime();
+</script>
