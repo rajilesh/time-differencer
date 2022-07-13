@@ -54,10 +54,10 @@
 
 //             console.log(totalH, totalM);
         }
-//         if (totalM > 59) {
-//             totalH += 1;
-//             totalM = totalM - 59;
-//         }
+        if (totalM > 59) {
+            totalH += 1;
+            totalM = totalM - 59;
+        }
         total_time.innerHTML = totalH + ':' + (totalM < 10 ? '0'+totalM : totalM);
     }
 
